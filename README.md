@@ -1,8 +1,8 @@
 # Tenpo challenge
 
-Simple overview of use/purpose.
+Desafio Tenpo.cl
 
-## Description
+## Descripcion
 
 Debes desarrollar una API REST en Spring Boot utilizando java 11 o superior, con las siguientes funcionalidades:
 
@@ -28,18 +28,25 @@ Debes desarrollar una API REST en Spring Boot utilizando java 11 o superior, con
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* Docker , Maven.
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+* Primero: ingresar a la carpeta de challenge y levantar el ambiente de postgress con el siguiente comando:
 ```
-code blocks for commands
+docker compose -f postgres.yml up
+```
+* Segundo: generar los .jar con el comando :
+```
+cd .. 
+mvn -f clean package challenge/
+mvn -f clean package calculator/
+```
+* Tercero: una vez generado los jars ya se puede bajar el container de postgres :
+```
+docker compose -f postgres.yml down
+```
+* Cuarto: levantar el contenedor en el directorio root el cual contiene las 2 aplicaciones y la db :
+```
+docker compose -f docker-compose.yml up --build
 ```
