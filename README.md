@@ -53,7 +53,7 @@ docker compose -f postgres.yml down
 ```
 * Tercero: levantar el contenedor en el directorio root el cual contiene las 2 aplicaciones y la db:
 ```
-docker compose -f docker-compose.yml up --build
+docker compose -f docker-compose-nuild.yml up --build
 ```
 
 ## PostMan
