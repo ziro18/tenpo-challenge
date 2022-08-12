@@ -28,25 +28,57 @@ Debes desarrollar una API REST en Spring Boot utilizando java 11 o superior, con
 
 ### Dependencies
 
-* Docker , Maven.
+* Docker , Maven, Java 11.
 
 ### Executing program
 
-* Primero: ingresar a la carpeta de challenge y levantar el ambiente de postgress con el siguiente comando:
+* Para ejecutar el programa use el siguiente comando:
+
 ```
-docker compose -f postgres.yml up
+docker-compose -f docker-compose.yml up
 ```
-* Segundo: generar los .jar con el comando :
+### Building program
+
+* Primero: levantar la db y crear los jars:
 ```
+docker-compose -f utils/postgres.yml up
 cd .. 
 mvn -f clean package challenge/
 mvn -f clean package calculator/
 ```
-* Tercero: una vez generado los jars ya se puede bajar el container de postgres :
+* Segundo: una vez generado los jars ya se puede bajar el container de postgres :
 ```
 docker compose -f postgres.yml down
 ```
-* Cuarto: levantar el contenedor en el directorio root el cual contiene las 2 aplicaciones y la db :
+* Tercero: levantar el contenedor en el directorio root el cual contiene las 2 aplicaciones y la db:
 ```
 docker compose -f docker-compose.yml up --build
+```
+
+## PostMan
+
+* En la carpeta utils se encontrara el archivo "Tenpo.postman_collection.json" el cual contiene :
+  1- Auth:
+    - SignUp : Registro de usuarios al sistema.
+    - Login : Login por medio de username y password el cual de ser correctos devolvera un token.
+  2- Calculator:
+    - Calculator: La api solicitada que suma 2 numeros y le aplica un porcentaje que consume de la api "calculator".
+  3- Request History:
+    - Request histories: Historial de llamadas a los endpoint en formato de pagina.
+    - 
+ * Aclaracion en el los puntos 2 y 3 se debe autenticar con el bearer token que devuelve el login, en la seccion de test de post esta automatizado el guardado 
+ * del token en una variable de en ambiente llamada "token".
+
+## links de interes
+
+# Docker hub
+
+* Challenge App
+```
+[challenge APP](https://hub.docker.com/repository/docker/ziro18/challenge)
+```
+
+* Calculator App
+```
+https://hub.docker.com/repository/docker/ziro18/calculator
 ```
