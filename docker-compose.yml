@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  challenge:
+    container_name: challenge
+    build:
+      context: challenge
+      dockerfile: Dockerfile
+    image: challenge:latest
+    depends_on:
+      - db
+      - calculator
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/tenpo
+      - SPRING_DATASOURCE_USERNAME=tenpo
+      - SPRING_DATASOURCE_PASSWORD=tenpo
+    external_links:
+      - calculator:calculator
+
+  calculator:
+    container_name: calculator
+    build:
+      context: calculator
+      dockerfile: Dockerfile
+    image: calculator:latest
+    ports:
+      - 8081:8081
+    expose:
+      - 8081:8081
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: tenpo
+      POSTGRES_PASSWORD: tenpo
+      POSTGRES_DB: tenpo
+    ports:
+      - 5432:5432
+
+networks:
+  default:
+    driver: bridge
