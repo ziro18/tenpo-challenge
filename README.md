@@ -53,22 +53,21 @@ docker compose -f postgres.yml down
 ```
 * Tercero: levantar el contenedor en el directorio root el cual contiene las 2 aplicaciones y la db:
 ```
-docker compose -f docker-compose-nuild.yml up --build
+docker compose -f docker-compose-build.yml up --build
 ```
 
 ## PostMan
 
-* En la carpeta utils se encontrara el archivo "Tenpo.postman_collection.json" el cual contiene :
-  1- Auth:
+* En la carpeta utils se encontrara el archivo "Tenpo.postman_collection.json" el cual contiene:
+  1. Auth:
     - SignUp : Registro de usuarios al sistema.
     - Login : Login por medio de username y password el cual de ser correctos devolvera un token.
-  2- Calculator:
+  2. Calculator:
     - Calculator: La api solicitada que suma 2 numeros y le aplica un porcentaje que consume de la api "calculator".
-  3- Request History:
+  3. Request History:
     - Request histories: Historial de llamadas a los endpoint en formato de pagina.
-    - 
- * Aclaracion en el los puntos 2 y 3 se debe autenticar con el bearer token que devuelve el login, en la seccion de test de post esta automatizado el guardado 
- * del token en una variable de en ambiente llamada "token".
+    
+ * Aclaracion en Calculator y Request History se debe autenticar con el bearer token que devuelve el Login, en la seccion de test de post esta automatizado el guardado    del token en una variable de en ambiente llamada "token".
 
 ## links de interes
 
