@@ -3,7 +3,10 @@ version: "3.9"
 services:
   challenge:
     container_name: challenge
-    image: ziro18/challenge:latest
+    build:
+      context: challenge
+      dockerfile: Dockerfile
+    image: challenge:latest
     depends_on:
       - db
       - calculator
@@ -18,7 +21,10 @@ services:
 
   calculator:
     container_name: calculator
-    image: ziro18/calculator:latest
+    build:
+      context: calculator
+      dockerfile: Dockerfile
+    image: calculator:latest
     ports:
       - 8081:8081
     expose:
