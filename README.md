@@ -37,7 +37,8 @@ Debes desarrollar una API REST en Spring Boot utilizando java 11 o superior, con
 ```
 docker-compose -f docker-compose.yml up
 ```
-### Building program
+### Building program (Optional)
+### En caso de querer construir las imagenes de docker
 
 * Primero: levantar la db y crear los jars:
 ```
@@ -75,7 +76,7 @@ docker compose -f docker-compose.yml up --build
 
 * Challenge App
 ```
-[challenge APP](https://hub.docker.com/repository/docker/ziro18/challenge)
+https://hub.docker.com/repository/docker/ziro18/challenge
 ```
 
 * Calculator App
