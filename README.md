@@ -35,7 +35,7 @@ Debes desarrollar una API REST en Spring Boot utilizando java 11 o superior, con
 * Para ejecutar el programa use el siguiente comando:
 
 ```
-docker-compose -f docker-compose.yml up
+docker compose -f docker-compose.yml up
 ```
 ### Building program (Optional)
 ### En caso de querer construir las imagenes de docker
