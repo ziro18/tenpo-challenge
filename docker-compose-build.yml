@@ -6,7 +6,7 @@ services:
     build:
       context: challenge
       dockerfile: Dockerfile
-    image: challenge:latest
+    image: ziro18/challenge:latest
     depends_on:
       - db
       - calculator
@@ -24,7 +24,7 @@ services:
     build:
       context: calculator
       dockerfile: Dockerfile
-    image: calculator:latest
+    image: ziro18/calculator:latest
     ports:
       - 8081:8081
     expose:

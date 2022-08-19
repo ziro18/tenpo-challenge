@@ -1,6 +1,5 @@
 package com.tenpo.challenge.client;
 
-import com.tenpo.challenge.exception.ApiErrorException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,8 +7,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -27,31 +27,19 @@ class CalculatorClientTest {
         when(restTemplate.getForObject(buildUrl(NUMBER_1, NUMBER_2), Long.class))
                 .thenReturn(NUMBER_1 + NUMBER_2);
 
-        Long sum = calculatorClient.getSum(NUMBER_1, NUMBER_2);
+        Long sum = calculatorClient.getSum(NUMBER_1, NUMBER_2).get();
 
         assertThat(sum).isEqualTo(NUMBER_1 + NUMBER_2);
     }
 
     @Test
-    void whenGetSumIsFailAndItHasLastResult_thenReturnsLastResult() {
-        calculatorClient.setLastResult(10L);
+    void whenGetSumIsFail_thenReturnsEmpty() {
         when(restTemplate.getForObject(buildUrl(NUMBER_1, NUMBER_2), Long.class))
                 .thenThrow(new RuntimeException());
 
-        Long sum = calculatorClient.getSum(NUMBER_1, NUMBER_2);
+        Optional<Long> sum = calculatorClient.getSum(NUMBER_1, NUMBER_2);
 
-        assertThat(sum).isEqualTo(NUMBER_1 + NUMBER_2);
-    }
-
-    @Test
-    void whenGetSumIsFailAndItDoesNotLastResult_thenRetryAndThrowsApiErrorException() {
-        calculatorClient.setLastResult(null);
-        when(restTemplate.getForObject(buildUrl(NUMBER_1, NUMBER_2), Long.class))
-                .thenThrow(new RuntimeException());
-
-        assertThatThrownBy(() -> calculatorClient.getSum(NUMBER_1, NUMBER_2))
-                .isInstanceOf(ApiErrorException.class)
-                .hasMessage("RateLimiter 'calculatorClient' does not permit further calls");
+        assertThat(sum).isEmpty();
     }
 
     private String buildUrl(Long number1, Long number2) {
