@@ -42,10 +42,9 @@ docker compose -f docker-compose.yml up
 
 * Primero: levantar la db y crear los jars:
 ```
-docker-compose -f utils/postgres.yml up
-cd .. 
-mvn -f clean package challenge/
-mvn -f clean package calculator/
+docker compose -f utils/postgres.yml up
+mvn -f challenge/pom.xml clean package 
+mvn -f  calculator/pom.xml clean package
 ```
 * Segundo: una vez generado los jars ya se puede bajar el container de postgres :
 ```
