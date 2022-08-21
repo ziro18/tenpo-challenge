@@ -22,7 +22,7 @@ public class CalculatorServiceImpl implements CalculatorService {
     public CalculatorResponse getPercentage(Long number1, Long number2) {
         LastResult lastResult = calculatorClient.getSum(number1, number2)
                 .map(res -> lastResultRepository.save(buildLastResult(res)))
-                .orElse(lastResultRepository.findAll().stream().findFirst()
+                .orElse(lastResultRepository.findTopByOrderByCreatedAtDesc()
                         .orElseThrow(() -> new ApiErrorException("Last result not found.")));
 
         double percentage = (lastResult.getLastResult() * (number1 + number2)) / 100.0;
